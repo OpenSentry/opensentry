@@ -1,0 +1,87 @@
+ban:
+  usernames: ./banned_usernames
+crypto:
+  keys:
+    clients:
+      - youreallyneedtochangethis_32
+    totp:
+      - youreallyneedtochangethis_32
+csrf:
+  authkey: youreallyneedtochangethis_64
+hydra:
+  session:
+    timeout: 1209600 # 60*60*24*14 = 14 days
+id: e044d683-5daf-42af-a31a-938094611be9
+invite:
+  template:
+    email:
+      file: emails/invite.md
+      subject: Invitation from Identity Provider
+  ttl: 86400
+  url: https://id.localhost/claim
+log:
+  debug: 1
+  format: default
+mail:
+  smtp:
+    host: postfix:587
+    password: mail_youreallyneedtochangethis_64
+    skip_tls_verify: 1
+    user: idp@id.localhost
+migration:
+  data:
+    path: ./model/data.cyp
+  schema:
+    path: ./model/schema.cyp
+nats:
+  url: nats://J6mLcX52MRHzYbzmmdjXJeePA8g9GywL@nats:4222
+neo4j:
+  password: neo4j_youreallyneedtochangethis_64
+  uri: bolt://neo4j:7687
+  username: neo4j
+oauth2:
+  client:
+    id: 8dc7ea3e-c61a-47cd-acf2-2f03615e3f8b
+    secret: youreallyneedtochangethis_64
+  scopes:
+    required:
+    - hydra
+    - aap:create:entities
+    - aap:create:grants
+    #- aap:read:entities:judge
+provider:
+  email: identity-provider@id.localhost
+  name: Identity Provider
+serve:
+  public:
+    port: 443
+  tls:
+    cert:
+      path: /srv/certs/idp-cert.pem
+    key:
+      path: /srv/certs/idp-key.pem
+session:
+  authkey: youreallyneedtochangethis_64
+totp:
+  cryptkey: youreallyneedtochangethis_32
+templates:
+  authenticate:
+    email:
+      templatefile: emails/authenticate.md
+      subject: Verification code from Identity Provider
+  recover:
+    email:
+      templatefile: emails/recover.md
+      subject: Recovery code from Identity Provider
+  delete:
+    email:
+      templatefile: emails/delete.md
+      subject: Delete confirmation code from Identity Provider
+  emailconfirm:
+    email:
+      templatefile: emails/emailconfirm.md
+      subject: Email confirmation code from Identity Provider
+  emailchange:
+    email:
+      templatefile: emails/emailchange.md
+      subject: Email confirmation code from Identity Provider

@@ -1,0 +1,43 @@
+csrf:
+  authkey: youreallyneedtochangethis_64
+log:
+  debug: 1
+  format: default
+oauth2:
+  callback: https://id.localhost/callback
+  client:
+    id: c7f1afc4-1e1f-484e-b3c2-0519419690cb
+    secret: youreallyneedtochangethis_64
+  scopes:
+    required:
+    - openid
+    - offline
+    - idp:read:identities
+    - idp:create:invites
+    - idp:read:invites
+    - idp:create:invites:send
+    - idp:create:invites:claim
+    - idp:read:humans
+    - idp:read:humans:logout
+    - idp:create:humans:logout
+    - idp:update:humans:logout
+    - idp:create:humans:recover
+    - idp:create:humans
+    - idp:create:humans:authenticate
+    - idp:update:humans:recoververification
+    - idp:update:humans:deleteverification
+    - idp:read:challenges
+    - idp:create:challenges
+    - idp:update:challenges:verify
+    - idp:create:humans:emailchange
+    - idp:update:humans:emailchange
+serve:
+  public:
+    port: 443
+  tls:
+    cert:
+      path: /srv/certs/idpui-cert.pem
+    key:
+      path: /srv/certs/idpui-key.pem
+session:
+  authkey: youreallyneedtochangethis_64

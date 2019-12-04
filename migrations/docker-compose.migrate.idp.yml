@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  idp-migrate:
+    image: charmixer/idp:0.0.0
+    command:
+      --migrate
+    networks:
+      - trusted
+    environment:
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    volumes:
+      - ../config/discovery.yml:/discovery.yml
+      - ../config/idp.yml:/app.yml
+    user: "1000"
+    restart: "no"
+
+networks:
+  trusted:
+    name: trusted

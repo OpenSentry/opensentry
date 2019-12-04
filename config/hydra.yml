@@ -1,0 +1,266 @@
+# For configuration options see https://www.ory.sh/docs/next/hydra/configuration
+
+dsn: mysql://root:mysql_youreallyneedtochangethis_64@tcp(mysqld:3306)/mysql?max_conns=20&max_idle_conns=4
+
+# The secrets section configures secrets used for encryption and signing of several systems. All secrets can be rotated,
+# for more information on this topic navigate to:
+# -> https://www.ory.sh/docs/hydra/advanced#rotation-of-hmac-token-signing-and-database-and-cookie-encryption-keys
+secrets:
+  # The system secret must be at least 16 characters long. If none is provided, one will be generated. They key
+  # is used to encrypt sensitive data using AES-GCM (256 bit) and validate HMAC signatures.
+  #
+  # The first item in the list is used for signing and encryption. The whole list is used for verifying signatures
+  # and decryption.
+  system:
+    - youreallyneedtochangethis_64 # TODO
+
+  # A secret that is used to encrypt cookie sessions. Defaults to secrets.system. It is recommended to use
+  # a separate secret in production.
+  #
+  # The first item in the list is used for signing and encryption. The whole list is used for verifying signatures
+  # and decryption.
+  cookie:
+    - youreallyneedtochangethis_64 # TODO
+
+# TODO
+# log configures the logger
+log:
+  # Sets the log level, supports "panic", "fatal", "error", "warn", "info" and "debug". Defaults to "info".
+  level: debug
+  # Sets the log format. Leave it undefined for text based log format, or set to "json" for JSON formatting.
+  format: json
+
+# serve controls the configuration for the http(s) daemon(s).
+serve:
+
+  # public controls the public daemon serving public API endpoints like /oauth2/auth, /oauth2/token, /.well-known/jwks.json
+  public:
+    # The port to listen on. Defaults to 4444
+    port: 443
+    # The interface or unix socket ORY Hydra should listen and handle public API requests on.
+    # Use the prefix "unix:" to specify a path to a unix socket.
+    # Leave empty to listen on all interfaces.
+    #host: localhost # leave this out or empty to listen on all devices which is the default
+    #host: unix:/path/to/socket
+
+    # cors configures Cross Origin Resource Sharing for public endpoints.
+    cors:
+      # set enabled to true to enable CORS. Defaults to false.
+      enabled: false
+
+      # allowed_origins is a list of origins (comma separated values) a cross-domain request can be executed from.
+      # If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*)
+      # to replace 0 or more characters (i.e.: http://*.domain.com). Only one wildcard can be used per origin.
+      #
+      # If empty or undefined, this defaults to `*`, allowing CORS from every domain (if cors.enabled: true).
+      #allowed_origins:
+      #  - https://example.com
+      #  - https://*.example.com
+
+      # allowed_methods is list of HTTP methods the user agent is allowed to use with cross-domain
+      # requests. Defaults to the methods listed.
+      #allowed_methods:
+      #  - POST
+      #  - GET
+      #  - PUT
+      #  - PATCH
+      #  - DELETE
+
+      # A list of non simple headers the client is allowed to use with cross-domain requests. Defaults to the listed values.
+      #allowed_headers:
+      #  - Authorization
+      #  - Content-Type
+
+      # Sets which headers (comma separated values) are safe to expose to the API of a CORS API specification. Defaults to the listed values.
+      #exposed_headers:
+      #  - Content-Type
+
+      # Sets whether the request can include user credentials like cookies, HTTP authentication
+      # or client side SSL certificates. Defaults to true.
+      allow_credentials: true
+
+      # Sets how long (in seconds) the results of a preflight request can be cached. If set to 0, every request
+      # is preceded by a preflight request. Defaults to 0.
+      max_age: 0
+
+      # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
+      debug: true # TODO
+
+    # Access Log configuration for public server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false # TODO
+
+  # admin controls the admin daemon serving admin API endpoints like /jwk, /client, ...
+  admin:
+    # The port to listen on. Defaults to 4445
+    port: 4445
+
+    # The interface or unix socket ORY Hydra should listen and handle administrative API requests on.
+    # Use the prefix "unix:" to specify a path to a unix socket.
+    # Leave empty to listen on all interfaces.
+    #host: localhost # leave this out or empty to listen on all devices which is the default
+    #host: unix:/path/to/socket
+
+    # cors configures Cross Origin Resource Sharing for admin endpoints.
+    cors:
+      # set enabled to true to enable CORS. Defaults to false.
+      enabled: true
+
+      # allowed_origins is a list of origins (comma separated values) a cross-domain request can be executed from.
+      # If the special * value is present in the list, all origins will be allowed. An origin may contain a wildcard (*)
+      # to replace 0 or more characters (i.e.: http://*.domain.com). Only one wildcard can be used per origin.
+      #
+      # If empty or undefined, this defaults to `*`, allowing CORS from every domain (if cors.enabled: true).
+      #allowed_origins:
+      #  - https://example.com
+      #  - https://*.example.com
+
+      # allowed_methods is list of HTTP methods the user agent is allowed to use with cross-domain
+      # requests. Defaults to GET and POST.
+      #allowed_methods:
+      #  - POST
+      #  - GET
+      #  - PUT
+      #  - PATCH
+      #  - DELETE
+
+      # A list of non simple headers the client is allowed to use with cross-domain requests. Defaults to the listed values.
+      #allowed_headers:
+      #  - Authorization
+      #  - Content-Type
+
+      # Sets which headers (comma separated values) are safe to expose to the API of a CORS API specification. Defaults to the listed values.
+      #exposed_headers:
+      #  - Content-Type
+
+      # Sets whether the request can include user credentials like cookies, HTTP authentication
+      # or client side SSL certificates.
+      allow_credentials: true
+
+      # Sets how long (in seconds) the results of a preflight request can be cached. If set to 0, every request
+      # is preceded by a preflight request. Defaults to 0.
+      max_age: 0
+
+      # If set to true, adds additional log output to debug server side CORS issues. Defaults to false.
+      debug: true # TODO
+
+    # Access Log configuration for admin server.
+    access_log:
+      # Disable access log for health endpoints.
+      disable_for_health: false # TODO
+
+  # tls configures HTTPS (HTTP over TLS). If configured, the server automatically supports HTTP/2.
+  tls:
+    # key configures the private key (pem encoded)
+    key:
+      # The key can either be loaded from a file:
+      path: /srv/certs/hydra-key.pem
+      # Or from a base64 encoded (without padding) string:
+      #base64:...
+
+    # cert configures the TLS certificate (PEM encoded)
+    cert:
+      # The cert can either be loaded from a file:
+      path: /srv/certs/hydra-cert.pem
+      # Or from a base64 encoded (without padding) string:
+      #base64:...
+
+# oidc configures OpenID Connect features.
+oidc:
+  # subject_identifiers configures the Subject Identifier algorithm.
+  #
+  # For more information please head over to the documentation:
+  # -> https://www.ory.sh/docs/hydra/advanced#subject-identifier-algorithms
+  subject_identifiers:
+    # which algorithms to enable. Defaults to "public"
+    enabled: public,pairwise
+    # configures the pairwise algorithm
+    pairwise:
+      # if "pairwise" is enabled, the salt must be defined.
+      salt: youreallyneedtochangethis_64 # TODO
+
+  dynamic_client_registration:
+    default_scope: ""
+
+urls:
+  self:
+    # This value will be used as the "issuer" in access and ID tokens. It must be
+    # specified and using HTTPS protocol, unless --dangerous-force-http is set. This should typically be equal
+    # to the public value.
+    issuer: https://oauth.localhost/
+
+    # This is the base location of the public endpoints of your ORY Hydra installation. This should typically be equal
+    # to the issuer value. If left unspecified, it falls back to the issuer value.
+    public: https://oauth.localhost/
+
+  # Sets the login endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
+  login: https://id.localhost/login
+
+  # Sets the consent endpoint of the User Login & Consent flow. Defaults to an internal fallback URL.
+  consent: https://aa.localhost/consent
+
+  # Sets the logout endpoint. Defaults to an internal fallback URL.
+  logout: https://id.localhost/logout
+
+  # Sets the error endpoint. The error ui will be shown when an OAuth2 error occurs that which can not be sent back
+  # to the client. Defaults to an internal fallback URL.
+  error: https://oauth.localhost/error
+
+  # When a user agent requests to logout, it will be redirected to this url afterwards per default.
+  post_logout_redirect: https://id.localhost/seeyoulater
+
+oauth2:
+  # Set this to true if you want to share error debugging information with your OAuth 2.0 clients.
+  # Keep in mind that debug information is very valuable when dealing with errors, but might also expose database error
+  # codes and similar errors. Defaults to false.
+  expose_internal_errors: true # TODO
+  # Configures hashing algorithms. Supports only BCrypt at the moment.
+  hashers:
+    # Configures the BCrypt hashing algorithm used for hashing Client Secrets.
+    bcrypt:
+      # Sets the BCrypt cost. Minimum value is 4 and default value is 10. The higher the value, the more CPU time is being
+      # used to generate hashes.
+      cost: 10
+
+# configures time to live
+ttl:
+  # configures how long a user login and consent flow may take. Defaults to 1h.
+  login_consent_request: 1h
+  # configures how long access tokens are valid. Defaults to 1h.
+  access_token: 1h
+  # configures how long refresh tokens are valid. Defaults to 720h. Set to -1 for refresh tokens to never expire.
+  refresh_token: 720h
+  # configures how long id tokens are valid. Defaults to 1h.
+  id_token: 1h
+  # configures how long auth codes are valid. Defaults to 10m.
+  auth_code: 10m
+
+# ORY Hydra supports distributed tracing.
+tracing:
+  # Set this to the tracing backend you wish to use. Currently supports jaeger. If omitted or empty, tracing will
+  # be disabled.
+  provider: jaeger
+  # Specifies the service name to use on the tracer.
+  service_name: ORY Hydra
+  providers:
+    # Configures the jaeger tracing backend.
+    jaeger:
+      # The address of the jaeger-agent where spans should be sent to
+      local_agent_address: jaeger:6831
+      # The tracing header format
+      propagation: jaeger
+      sampling:
+        # The type of the sampler you want to use. Supports:
+        # - const
+        # - probabilistic
+        # - ratelimiting
+        type: const
+        # The value passed to the sampler type that has been configured.
+        # Supported values: This is dependant on the sampling strategy used:
+        # - const: 0 or 1 (all or nothing)
+        # - rateLimiting: a constant rate (e.g. setting this to 3 will sample requests with the rate of 3 traces per second)
+        # - probabilistic: a value between 0..1
+        value: 1.0
+        # The address of jaeger-agent's HTTP sampling server
+        server_url: http://jaeger:5778/sampling

@@ -1,0 +1,146 @@
+rows:
+  -
+    client: #aapui
+      id: 919e2026-06af-4c82-9d84-6af4979d9e7a
+      name: aapui
+      scopes: openid offline aap:create:consents:authorize aap:read:consents:authorize aap:create:consents:reject aap:read:scopes aap:read:consents aap:create:consents aap:delete:consents aap:read:subscriptions aap:read:publishes
+      grantTypes:
+        - authorization_code
+        - client_credentials
+        - refresh_token
+      audience:
+        - aap
+      responseTypes:
+        - token
+        - code
+      redirectUris:
+        - https://aa.localhost/callback
+      postLogoutRedirectUris: []
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /aapui.yml
+
+  -
+    client: #aap
+      id: b27062eb-090a-4c9a-a982-ff47b8c7f916
+      name: aap
+      scopes: hydra #aap:read:entities:judge
+      grantTypes:
+        - client_credentials
+      audience:
+        - hydra
+      responseTypes:
+        - token
+      redirectUris:
+      postLogoutRedirectUris: []
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /aap.yml
+
+  -
+    client: #idpui
+      id: c7f1afc4-1e1f-484e-b3c2-0519419690cb
+      name: idpui
+      scopes: openid offline idp:read:identities idp:create:invites idp:read:invites idp:create:invites:send idp:create:invites:claim idp:create:humans idp:read:humans idp:create:humans:authenticate idp:update:humans:password idp:update:humans:totp idp:read:humans:logout idp:create:humans:logout idp:update:humans:logout idp:create:humans:recover idp:update:humans:recoververification idp:update:humans:deleteverification idp:read:challenges idp:create:challenges idp:update:challenges:verify idp:delete:humans idp:create:humans:emailchange idp:update:humans:emailchange
+      grantTypes:
+        - authorization_code
+        - client_credentials
+        - refresh_token
+      audience:
+        - idp
+        - aap
+      responseTypes:
+        - token
+        - code
+      redirectUris:
+        - https://id.localhost/password
+        - https://id.localhost/totp
+        - https://id.localhost/delete
+        - https://id.localhost/emailchange
+        - https://id.localhost/emailchangeconfirm
+      postLogoutRedirectUris:
+        - https://id.localhost/seeyoulater
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /idpui.yml
+
+  -
+    client: #meui
+      id: 20f2bfc6-44df-424a-b490-c024d009892c
+      name: meui
+      scopes: openid offline idp:read:identities idp:read:humans idp:update:humans idp:create:humans:recover idp:create:invites idp:read:invites idp:create:invites:send idp:create:invites:claim idp:create:resourceservers idp:read:resourceservers idp:delete:resourceservers idp:create:clients idp:read:clients idp:delete:clients aap:read:scopes aap:create:scopes aap:update:scopes aap:read:grants aap:create:grants aap:delete:grants aap:read:publishes aap:create:publishes aap:delete:publishes aap:read:consents aap:delete:consents aap:create:subscriptions aap:delete:subscriptions aap:read:subscriptions idp:create:roles idp:read:roles idp:delete:roles aap:create:shadows aap:read:shadows aap:delete:shadows
+      grantTypes:
+        - authorization_code
+        - refresh_token
+      audience:
+        - idp
+        - aap
+      responseTypes:
+        - token
+        - code
+      redirectUris:
+        - https://me.localhost/callback
+      postLogoutRedirectUris:
+        - https://me.localhost/seeyoulater
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /meui.yml
+
+  -
+    client: #idp
+      id: 8dc7ea3e-c61a-47cd-acf2-2f03615e3f8b
+      name: idp
+      scopes: hydra aap:create:entities aap:create:grants #aap:read:entities:judge
+      grantTypes:
+        - client_credentials
+      audience:
+        - hydra
+        - aap
+      responseTypes:
+        - token
+      redirectUris: []
+      postLogoutRedirectUris: []
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /idp.yml
+
+  -
+    client: #carservice-client
+      id: 23d54544-5205-4aa7-8a25-7c82dcf1e223
+      name: carservice-client
+      scopes: carservice:create:cars
+      grantTypes:
+        - client_credentials
+      audience:
+        - carservice
+      responseTypes:
+        - token
+      redirectUris: []
+      postLogoutRedirectUris: []
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /carservice-client.yml
+
+  -
+    client: #carservice
+      id: a75c53db-a529-49fb-af93-c156fbc24a9a
+      name: carservice
+      scopes: hydra #aap:read:entities:judge
+      grantTypes:
+        - client_credentials
+      audience:
+        - hydra
+      responseTypes:
+        - token
+      redirectUris: []
+      postLogoutRedirectUris: []
+    updateIfExists: true
+    keepSecrets: true
+    hydraHost: https://hydra:4445
+    configFile: /carservice.yml

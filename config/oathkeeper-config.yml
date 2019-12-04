@@ -1,0 +1,63 @@
+log:
+  level: debug
+  format: json
+
+serve:
+  proxy:
+    port: 443 # run the proxy at port 443
+    tls:
+      key:
+        path: /srv/certs/oathkeeper-key.pem
+      cert:
+        path: /srv/certs/oathkeeper-cert.pem
+  api:
+    port: 4456 # run the api at port 4456
+    tls:
+      key:
+        path: /srv/certs/oathkeeper-key.pem
+      cert:
+        path: /srv/certs/oathkeeper-cert.pem
+
+access_rules:
+  repositories:
+    - file:/rules.json
+
+mutators:
+  noop:
+    enabled: true
+
+authorizers:
+  allow:
+    enabled: true
+  deny:
+    enabled: true
+
+authenticators:
+  noop:
+    enabled: true
+
+  # Configures the oauth2_client_credentials authenticator
+  oauth2_client_credentials:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    # REQUIRED IF ENABLED - The OAuth 2.0 Token Endpoint that will be used to validate the client credentials.
+    token_url: https://hydra:4445/oauth2/token
+
+  # Configures the oauth2_introspection authenticator
+  oauth2_introspection:
+    # Set enabled to true if the authenticator should be enabled and false to disable the authenticator. Defaults to false.
+    enabled: true
+
+    # REQUIRED IF ENABLED - The OAuth 2.0 Token Introspection endpoint.
+    introspection_url: https://hydra:4445/oauth2/introspection
+
+    # Sets the strategy to be used to validate/match the token scope. Supports "hierarchic", "exact", "wildcard", "none". Defaults
+    # to "none".
+    scope_strategy: exact
+
+    # Enable pre-authorization in cases where the OAuth 2.0 Token Introspection endpoint is protected by OAuth 2.0 Bearer
+    # Tokens that can be retrieved using the OAuth 2.0 Client Credentials grant.
+    pre_authorization:
+      # Enable pre-authorization. Defaults to false.
+      enabled: false

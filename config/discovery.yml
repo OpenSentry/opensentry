@@ -1,0 +1,152 @@
+meui:
+  public:
+    url: https://me.localhost
+    port: 443
+    endpoints:
+      logout: /logout
+      callback: /callback
+      profile: /
+      edit: /profile/edit
+      invites:
+        collection: /invites
+        send: /invites/send
+      invite: /invite
+      clients:
+        collection: /clients
+        delete: /clients/delete
+      client: /client
+      resourceservers:
+        collection: /resourceservers
+        delete: /resourceservers/delete
+      resourceserver: /resourceserver
+      access:
+        collection: /access
+        grant: /access/grant
+      subscriptions:
+        collection: /subscriptions
+      publishings:
+        collection: /publishings
+      roles:
+        collection: /roles
+        delete: /roles/delete
+      consents:
+        collection: /consents
+      role: /role
+      shadows:
+        collection: /shadows
+      shadow: /shadow
+      seeyoulater: /seeyoulater
+
+aapui:
+  public:
+    url: https://aa.localhost
+    port: 443
+    endpoints:
+      callback: /callback
+      consent: /consent
+
+aap:
+  public:
+    url: https://aa.localhost/api
+    port: 443
+    endpoints:
+      scopes: /scopes
+      grants: /grants
+      publishes: /publishes
+      subscriptions:
+        collection: /subscriptions
+      consents:
+        collection: /consents
+        authorize: /consents/authorize
+        reject: /consents/reject
+      entities:
+        collection: /entities
+        judge: /entities/judge
+      shadows:
+        collection: /shadows
+
+idpui:
+  public:
+    url: https://id.localhost
+    port: 443
+    endpoints:
+      root: /
+      login: /login
+      logout: /logout
+      profile: /profile
+      password: /password
+      claim: /claim
+      register: /register
+      recover: /recover
+      recoverconfirm: /recoverconfirm
+      totp: /totp
+      verify: /verify
+      emailconfirm: /emailconfirm
+      emailchange: /emailchange
+      emailchangeconfirm: /emailchangeconfirm
+      delete: /delete
+      deleteconfirm: /deleteconfirm
+      seeyoulater: /seeyoulater
+
+idp:
+  public:
+    issuer: https://id.localhost/
+    url: https://id.localhost/api
+    port: 443
+    endpoints:
+      challenges:
+        collection: /challenges
+        verify: /challenges/verify
+      identities:
+        collection: /identities
+      humans:
+        collection: /humans
+        authenticate: /humans/authenticate
+        logout: /humans/logout
+        password: /humans/password
+        totp: /humans/totp
+        emailchange: /humans/emailchange
+        recover: /humans/recover
+        recoververification: /humans/recoververification
+        deleteverification: /humans/deleteverification
+      clients:
+        collection: /clients
+      invites:
+        collection: /invites
+        claim: /invites/claim
+        send: /invites/send
+      resourceservers:
+        collection: /resourceservers
+      roles:
+        collection: /roles
+
+hydra:
+  public:
+    url: https://oauth.localhost
+    port: 443
+    endpoints:
+      oauth2Token: /oauth2/token
+      oauth2Auth: /oauth2/auth
+      userinfo: /userinfo
+      healthAlive: /health/alive
+      healthReady: /health/ready
+      logout: /oauth2/sessions/logout
+
+  private:
+    url: https://hydra:4445
+    port: 4445
+    endpoints:
+      consent: /oauth2/auth/requests/consent
+      consentAccept: /oauth2/auth/requests/consent/accept
+      consentReject: /oauth2/auth/requests/consent/reject
+      login: /oauth2/auth/requests/login
+      loginAccept: /oauth2/auth/requests/login/accept
+      loginReject: /oauth2/auth/requests/login/reject
+      logout: /oauth2/auth/requests/logout
+      logoutAccept: /oauth2/auth/requests/logout/accept
+      logoutReject: /oauth2/auth/requests/logout/reject
+      healthAlive: /health/alive
+      healthReady: /health/ready
+      introspect: /oauth2/introspect
+      clients: /clients
+      sessionsLogin: /oauth2/auth/sessions/login

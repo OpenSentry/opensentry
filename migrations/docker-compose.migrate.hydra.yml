@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+
+  hydra-migrate:
+    image: oryd/hydra:v1.0.9
+    command:
+      migrate sql -e --yes --config /hydra.yml
+    networks:
+      - trusted
+    volumes:
+      - ../config/hydra.yml:/hydra.yml
+    user: "1000"
+    restart: "no"
+
+networks:
+  trusted:
+    name: trusted

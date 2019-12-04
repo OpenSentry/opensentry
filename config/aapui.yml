@@ -1,0 +1,33 @@
+csrf:
+  authkey: youreallyneedtochangethis_64
+log:
+  debug: 1
+  format: default
+oauth2:
+  callback: https://aa.localhost/callback
+  client:
+    id: 919e2026-06af-4c82-9d84-6af4979d9e7a
+    secret: youreallyneedtochangethis_64
+  scopes:
+    required:
+    - openid
+    - offline
+    - aap:read:scopes
+    - aap:read:consents
+    - aap:create:consents
+    - aap:delete:consents
+    - aap:read:consents:authorize
+    - aap:create:consents:authorize
+    - aap:create:consents:reject
+    - aap:read:subscriptions
+    - aap:read:publishes
+serve:
+  public:
+    port: 443
+  tls:
+    cert:
+      path: /srv/certs/aapui-cert.pem
+    key:
+      path: /srv/certs/aapui-key.pem
+session:
+  authkey: youreallyneedtochangethis_64

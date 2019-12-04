@@ -1,0 +1,187 @@
+idp: &idp_id 8dc7ea3e-c61a-47cd-acf2-2f03615e3f8b
+
+entities:
+
+  # IDP
+  - reference: *idp_id
+    publishings:
+      - scope: openid
+        title: ""
+        description: ""
+      - scope: offline
+        title: ""
+        description: ""
+      - scope: idp:authenticate:human
+        title: ""
+        description: ""
+      - scope: idp:read:identities
+        title: ""
+        description: ""
+      - scope: idp:update:identities
+        title: ""
+        description: ""
+      - scope: idp:delete:identities
+        title: ""
+        description: ""
+      - scope: idp:recover:identities
+        title: ""
+        description: ""
+      - scope: idp:logout:identities
+        title: ""
+        description: ""
+      - scope: idp:read:invites
+        title: ""
+        description: ""
+      - scope: idp:create:invites
+        title: ""
+        description: ""
+      - scope: idp:accept:invites
+        title: ""
+        description: ""
+      - scope: idp:send::invites
+        title: ""
+        description: ""
+      - scope: idp:create:resourceservers
+        title: ""
+        description: ""
+      - scope: idp:read:resourceservers
+        title: ""
+        description: ""
+      - scope: idp:update:resourceservers
+        title: ""
+        description: ""
+      - scope: idp:delete:resourceservers
+        title: ""
+        description: ""
+    subscriptions:
+      -
+    grants:
+      -
+    consents:
+      -
+
+  # AAP
+  - reference: b27062eb-090a-4c9a-a982-ff47b8c7f916
+    publishings:
+      - scope: aap:read:scopes
+        title: ""
+        description: ""
+      - scope: aap:create:scopes
+        title: ""
+        description: ""
+      - scope: aap:update:scopes
+        title: ""
+        description: ""
+      - scope: aap:read:grants
+        title: ""
+        description: ""
+      - scope: aap:create:grants
+        title: ""
+        description: ""
+      - scope: aap:delete:grants
+        title: ""
+        description: ""
+      - scope: aap:read:publishes
+        title: ""
+        description: ""
+      - scope: aap:create:publishes
+        title: ""
+        description: ""
+      - scope: aap:delete:publishes
+        title: ""
+        description: ""
+      - scope: aap:read:subscribes
+        title: ""
+        description: ""
+      - scope: aap:create:subscribes
+        title: ""
+        description: ""
+      - scope: aap:delete:subscribes
+        title: ""
+        description: ""
+      - scope: aap:read:consents
+        title: ""
+        description: ""
+      - scope: aap:create:consents
+        title: ""
+        description: ""
+      - scope: aap:delete:consents
+        title: ""
+        description: ""
+      - scope: aap:create:consents:authorize
+        title: ""
+        description: ""
+      - scope: aap:create:consents:reject
+        title: ""
+        description: ""
+    subscriptions:
+      -
+    grants:
+      -
+    consents:
+      -
+
+  # AAPUI
+  - reference: 919e2026-06af-4c82-9d84-6af4979d9e7a
+    publishings:
+      -
+    subscriptions:
+      - publisher: aap
+        scopes:
+          - aap:read:scopes
+          - aap:read:consents
+          - aap:create:consents
+          - aap:delete:consents
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+    grants:
+      - onbehalfof: aap
+        scopes:
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+    consents:
+      -
+
+  # IDPUI
+  - reference: c7f1afc4-1e1f-484e-b3c2-0519419690cb
+    publishings:
+      -
+    subscriptions:
+      - publisher: aap
+        scopes:
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+          - aap:read:scopes
+          - aap:read:consents
+          - aap:create:consents
+          - aap:delete:consents
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+    grants:
+      - on_behalf_of: aap
+        scopes:
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+    consents:
+      -
+
+  # MEUI
+  - reference: 20f2bfc6-44df-424a-b490-c024d009892c
+    publishings:
+      -
+    subscriptions:
+      - publisher: aap
+        scopes:
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+          - aap:read:scopes
+          - aap:read:consents
+          - aap:create:consents
+          - aap:delete:consents
+    grants:
+      - on_behalf_of: aap
+        scopes:
+          - aap:create:consents:authorize
+          - aap:create:consents:reject
+    consents:
+      -

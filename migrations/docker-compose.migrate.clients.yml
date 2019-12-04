@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+
+  create-clients:
+    image: charmixer/hydra-tools:0.0.0
+    volumes:
+      - ../config/clients.yml:/in.yml
+      - ../config/aapui.yml:/aapui.yml
+      - ../config/aap.yml:/aap.yml
+      - ../config/idpui.yml:/idpui.yml
+      - ../config/idp.yml:/idp.yml
+      - ../config/meui.yml:/meui.yml
+    command: hydra-tools
+    networks:
+      - trusted
+    user: "1000"
+    restart: "no"
+
+networks:
+  trusted:
+    name: trusted

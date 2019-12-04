@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  certificates:
+    image: charmixer/self-signed-certificate-creator:0.0.0
+    volumes:
+      - ../config/certs.json:/conf.json
+      - ../certs:/certs
+    user: "1000"
+    restart: "no"

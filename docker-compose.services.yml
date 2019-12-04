@@ -1,0 +1,165 @@
+version: '3.7'
+
+services:
+
+  nats:
+    image: nats:2.0.4
+    command: -c nats-server.conf -DV --auth J6mLcX52MRHzYbzmmdjXJeePA8g9GywL
+    expose:
+      - "4222"
+      - "8222"
+    ports:
+      - "4222:4222"
+    hostname: nats-server
+    user: "1000"
+    networks:
+      - trusted
+
+  # docker run oryd/oathkeeper:v0.16.0 credentials generate --alg RS256 > oathkeeper-jwks.json
+  oathkeeper:
+    image: oryd/oathkeeper:v0.16.0
+    volumes:
+      - ./config/oathkeeper-config.yml:/config.yml # main configuration
+      - ./config/oathkeeper-rules.json:/rules.json # access rules
+      - ./config/oathkeeper-jwks.json:/jwks.json # The id_token mutator creates a signed JSON Web Token. For that to work a public/private key is required, this is what that is.
+      - ./certs/oath-key.pem:/srv/certs/oathkeeper-key.pem
+      - ./certs/oath-cert.pem:/srv/certs/oathkeeper-cert.pem
+
+        # trusting services
+      - ./certs/hydra-cert.pem:/etc/ssl/certs/hydra.pem
+      - ./certs/idpui-cert.pem:/etc/ssl/certs/idpui.pem
+      - ./certs/idp-cert.pem:/etc/ssl/certs/idp.pem
+      - ./certs/aapui-cert.pem:/etc/ssl/certs/aapui.pem
+      - ./certs/aap-cert.pem:/etc/ssl/certs/aap.pem
+        
+    command:
+      serve all --config "/config.yml"
+    networks:
+      trusted:
+        aliases:
+          - oauth.fullrate.dk
+          - id.fullrate.dk
+          - aa.fullrate.dk
+    expose:
+      - "443"
+      - "4456"
+    ports:
+      - "443:443" # proxy
+    sysctls: # allows unprivileged user to listen on 443 (works on linux, otherwise use root user)
+      net.ipv4.ip_unprivileged_port_start: 0
+    user: "1000" 
+    restart: on-failure
+
+  hydra:
+    image: oryd/hydra:v1.0.9
+    tty: true
+    command:
+      serve all --config /hydra.yml
+    networks:
+      - trusted
+    volumes:
+      - ./config/hydra.yml:/hydra.yml
+      - ./certs/hydra-key.pem:/srv/certs/hydra-key.pem
+      - ./certs/hydra-cert.pem:/srv/certs/hydra-cert.pem
+    expose:
+      - 443
+      - 4445
+    sysctls: # allows unprivileged user to listen on 443 (works on linux, otherwise use root user)
+      net.ipv4.ip_unprivileged_port_start: 0
+    depends_on: 
+      - oathkeeper
+    user: "1000"
+    restart: on-failure
+
+  idp:
+    image: charmixer/idp:0.0.0
+    command: --serve
+    tty: true
+    environment:
+      - PORT=443
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    networks:
+      - trusted
+    volumes:
+      - ./config/discovery.yml:/discovery.yml
+      - ./config/idp.yml:/app.yml
+      - ./config/ban/usernames:/ban/usernames
+      - ./certs/idp-key.pem:/srv/certs/idp-key.pem
+      - ./certs/idp-cert.pem:/srv/certs/idp-cert.pem
+      - ./certs/hydra-cert.pem:/etc/ssl/certs/hydra-cert.pem
+    depends_on: 
+      - hydra
+      - nats
+    user: "1000"
+    restart: on-failure
+
+  idpui:
+    image: charmixer/idpui:0.0.0
+    command: --serve
+    tty: true
+    environment:
+      - PORT=443
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    networks:
+      - trusted
+    volumes:
+      - ./config/discovery.yml:/discovery.yml
+      - ./config/idpui.yml:/app.yml
+      - ./certs/idpui-key.pem:/srv/certs/idpui-key.pem
+      - ./certs/idpui-cert.pem:/srv/certs/idpui-cert.pem
+    depends_on:
+      - idp
+    user: "1000"
+    restart: on-failure
+
+  aap:
+    image: charmixer/aap:0.0.0
+    command: --serve
+    tty: true
+    environment:
+      - PORT=443
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    networks:
+      - trusted
+    volumes:
+      - ./config/discovery.yml:/discovery.yml
+      - ./config/aap.yml:/app.yml
+      - ./certs/aap-key.pem:/srv/certs/aap-key.pem
+      - ./certs/aap-cert.pem:/srv/certs/aap-cert.pem
+      - ./certs/hydra-cert.pem:/etc/ssl/certs/hydra-cert.pem
+    depends_on: 
+      - hydra
+      - nats
+    user: "1000"
+    restart: on-failure
+
+  aapui:
+    image: charmixer/aapui:0.0.0
+    command: --serve
+    tty: true
+    environment:
+      - PORT=443
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    networks:
+      - trusted
+    volumes:
+      - ./config/discovery.yml:/discovery.yml
+      - ./config/aapui.yml:/app.yml
+      - ./certs/aapui-key.pem:/srv/certs/aapui-key.pem
+      - ./certs/aapui-cert.pem:/srv/certs/aapui-cert.pem
+    depends_on:
+      - aap
+    user: "1000"
+    restart: on-failure
+
+networks:
+  trusted:
+    name: trusted
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16

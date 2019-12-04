@@ -1,0 +1,848 @@
+[
+  {
+    "id": "oauth/.well-known",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/.well-known<.*>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "oauth/oauth2/auth",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/oauth2/auth",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "oauth/oauth2/revoke",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/oauth2/revoke",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "oauth/oauth2/sessions/logout",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/oauth2/sessions/logout",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "oauth/oauth2/token",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/oauth2/token",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "oauth/userinfo",
+    "upstream": {
+      "url": "https://hydra",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://oauth.localhost/userinfo",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+
+  {
+    "id": "idp/api",
+    "upstream": {
+      "url": "https://idp",
+      "preserve_host": false,
+      "strip_path": "/api"
+    },
+    "match": {
+      "url": "https://id.localhost/api<.*>",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "aap/api",
+    "upstream": {
+      "url": "https://aap",
+      "preserve_host": false,
+      "strip_path": "/api"
+    },
+    "match": {
+      "url": "https://aa.localhost/api<.*>",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+
+  {
+    "id": "idpui/",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/public",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/public<.*>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/login",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/login</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/logout",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/logout</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/profile",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/profile<.*>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/password",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/password</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/totp",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/totp</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/emailchange",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/emailchange</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/verify",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/verify</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/emailconfirm",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/emailconfirm</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/emailchangeconfirm",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/emailchangeconfirm</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/emailchangeconfirm",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/emailchangeconfirm</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/claim",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/claim</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/register",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/register</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/recover",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/recover</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/recoverconfirm",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/recoverconfirm</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/callback",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/callback</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/delete",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/delete</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/deleteconfirm",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/deleteconfirm</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "idpui/seeyoulater",
+    "upstream": {
+      "url": "https://idpui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://id.localhost/seeyoulater</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+
+  {
+    "id": "aapui/",
+    "upstream": {
+      "url": "https://aapui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://aa.localhost</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "aapui/callback",
+    "upstream": {
+      "url": "https://aapui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://aa.localhost/callback</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "aapui/consent",
+    "upstream": {
+      "url": "https://aapui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://aa.localhost/consent</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "aapui/public",
+    "upstream": {
+      "url": "https://aapui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://aa.localhost/public<.*>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+
+  {
+    "id": "meui/",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/callback",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/callback</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/public",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/public<.*>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/resourceservers",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/resourceservers</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/resourceservers/delete",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/resourceservers/delete</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/resourceserver",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/resourceserver</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/clients",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/clients</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/clients/delete",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/clients/delete</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/client",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/client</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/invites",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/invites</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/invite",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/invite</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/invites/send",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/invites/send</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/profile/edit",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/profile/edit</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/consents",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/consents",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/access",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/access",
+      "methods": ["GET", "POST", "PUT"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/access/new",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/access/new",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/access/grant",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/access/grant",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/logout",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/logout</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/seeyoulater",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/seeyoulater</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/subscriptions",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/subscriptions</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/publishings",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/publishings</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/publishings/publish",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/publishings/publish</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/role",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/role</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/roles",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/roles</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/roles/delete",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/roles/delete</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/shadows",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/shadows</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/shadow",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/shadow</?>",
+      "methods": ["GET", "POST"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  },
+  {
+    "id": "meui/ajax/identities",
+    "upstream": {
+      "url": "https://meui",
+      "preserve_host": false
+    },
+    "match": {
+      "url": "https://me.localhost/ajax/identities</?>",
+      "methods": ["GET"]
+    },
+    "authenticators": [{ "handler": "noop" }],
+    "authorizer": { "handler": "allow" },
+    "mutator": { "handler": "noop" }
+  }
+]

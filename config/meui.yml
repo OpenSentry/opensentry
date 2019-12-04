@@ -1,0 +1,61 @@
+csrf:
+  authkey: youreallyneedtochangethis_64
+log:
+  debug: 1
+  format: default
+oauth2:
+  callback: https://me.localhost/callback
+  client:
+    id: 20f2bfc6-44df-424a-b490-c024d009892c
+    secret: youreallyneedtochangethis_64
+  scopes:
+    required:
+    - openid
+    - offline
+    - idp:read:identities
+    - idp:read:humans
+    - idp:update:humans
+    - idp:create:humans:recover
+    - idp:create:invites
+    - idp:read:invites
+    - idp:create:invites:send
+    - idp:create:invites:claim
+    - idp:create:resourceservers
+    - idp:read:resourceservers
+    - idp:delete:resourceservers
+    - idp:create:clients
+    - idp:read:clients
+    - idp:delete:clients
+    - idp:create:roles
+    - idp:read:roles
+    - idp:delete:roles
+    - idp:read:identities
+    - aap:read:scopes
+    - aap:create:scopes
+    - aap:update:scopes
+    - aap:read:grants
+    - aap:create:grants
+    - aap:delete:grants
+    - aap:read:publishes
+    - aap:create:publishes
+    - aap:delete:publishes
+    - aap:read:consents
+    - aap:delete:consents
+    - aap:create:subscriptions
+    - aap:delete:subscriptions
+    - aap:read:subscriptions
+    - aap:create:shadows
+    - aap:read:shadows
+    - aap:delete:shadows
+serve:
+  public:
+    port: 443
+  tls:
+    cert:
+      path: /srv/certs/meui-cert.pem
+    key:
+      path: /srv/certs/meui-key.pem
+session:
+  authkey: youreallyneedtochangethis_64
+provider:
+  name: IDP & AAP

@@ -1,0 +1,91 @@
+[
+  {
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "Localhost",
+    "organization": "CharMixer",
+    "organization_unit": "oath",
+    "common_name": "oath.localhost",
+    "domains": ["id.localhost", "aa.localhost", "oauth.localhost"],
+    "output_name": "oath",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "Localhost",
+    "organization": "CharMixer",
+    "organization_unit": "idp",
+    "common_name": "id.localhost",
+    "domains": ["idp"],
+    "output_name": "idp",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "Localhost",
+    "organization": "CharMixer",
+    "organization_unit": "idpui",
+    "common_name": "id.localhost",
+    "domains": ["idpui"],
+    "output_name": "idpui",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "Localhost",
+    "organization": "CharMixer",
+    "organization_unit": "aap",
+    "common_name": "aa.localhost",
+    "domains": ["aap"],
+    "output_name": "aap",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "localhost",
+    "organization": "charmixer",
+    "organization_unit": "aapui",
+    "common_name": "aa.localhost",
+    "domains": ["aapui"],
+    "output_name": "aapui",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "localhost",
+    "organization": "charmixer",
+    "organization_unit": "hydra",
+    "common_name": "oauth.localhost",
+    "domains": ["hydra"],
+    "output_name": "hydra",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "localhost",
+    "organization": "charmixer",
+    "organization_unit": "postfix",
+    "common_name": "mail.localhost",
+    "domains": ["postfix"],
+    "output_name": "postfix",
+    "expire_days": 365,
+    "skip_if_found": true
+  },{
+    "country": "DK",
+    "state": "Zealand",
+    "locality": "localhost",
+    "organization": "charmixer",
+    "organization_unit": "meui",
+    "common_name": "me.localhost",
+    "domains": ["meui"],
+    "output_name": "meui",
+    "expire_days": 365,
+    "skip_if_found": true
+  }
+]

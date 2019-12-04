@@ -1,0 +1,34 @@
+csrf:
+  authkey: youreallyneedtochangethis_64
+id: a73b547b-f26d-487b-9e3a-2574fe3403fe
+log:
+  debug: 1
+  format: default
+migration:
+  data:
+    path: ./model/data.cyp
+  schema:
+    path: ./model/schema.cyp
+nats:
+  url: nats://J6mLcX52MRHzYbzmmdjXJeePA8g9GywL@nats:4222
+neo4j:
+  password: neo4j_youreallyneedtochangethis_64
+  uri: bolt://neo4j:7687
+  username: neo4j
+oauth2:
+  client:
+    id: b27062eb-090a-4c9a-a982-ff47b8c7f916
+    secret: youreallyneedtochangethis_64
+  scopes:
+    required:
+    - hydra
+serve:
+  public:
+    port: 443
+  tls:
+    cert:
+      path: /srv/certs/aap-cert.pem
+    key:
+      path: /srv/certs/aap-key.pem
+session:
+  authkey: youreallyneedtochangethis_64
