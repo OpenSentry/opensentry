@@ -3,34 +3,28 @@ version: '3.7'
 services:
 
   mysqld:
-    container_name: mysqld
     image: mysql:8.0
     volumes:
        - ./mysqldata:/var/lib/mysql
     env_file:
       - ./config/mysql.env
     networks:
-      - trusted
+      - lockdown
     user: "1000"
     restart: on-failure
 
   neo4j:
-    container_name: neo4j
     image: neo4j:3.5.0
     volumes:
       - ./neo4jdata:/data
     env_file:
       - ./config/neo4j.env
     networks:
-      - trusted
+      - lockdown
     user: "1000"
     restart: on-failure
 
 networks:
-  trusted:
-    name: trusted
-    driver: bridge
-    ipam:
-      driver: bridge
-      config:
-        - subnet: 172.18.0.0/16
+  lockdown:
+    name: opensentry_lockdown
+    internal: true

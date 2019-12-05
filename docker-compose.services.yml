@@ -2,6 +2,22 @@ version: '3.7'
 
 services:
 
+  postfix:
+    image: charmixer/dev-postfix:0.0.0
+    expose:
+      - 25
+      - 587
+    volumes:
+      - ./postfix/domainkeys:/etc/opendkim/domainkeys
+      - ./certs/postfix-key.pem:/etc/postfix/certs/postfix-key.key
+      - ./certs/postfix-cert.pem:/etc/postfix/certs/postfix-cert.crt
+      - ~/Maildir/dev:/root/Maildir
+    env_file:
+      - ./config/postfix.env
+    networks:
+      - trusted
+    restart: on-failure
+
   nats:
     image: nats:2.0.4
     command: -c nats-server.conf -DV --auth J6mLcX52MRHzYbzmmdjXJeePA8g9GywL
@@ -31,15 +47,15 @@ services:
       - ./certs/idp-cert.pem:/etc/ssl/certs/idp.pem
       - ./certs/aapui-cert.pem:/etc/ssl/certs/aapui.pem
       - ./certs/aap-cert.pem:/etc/ssl/certs/aap.pem
-        
+
     command:
       serve all --config "/config.yml"
     networks:
       trusted:
         aliases:
-          - oauth.fullrate.dk
-          - id.fullrate.dk
-          - aa.fullrate.dk
+          - oauth.localhost
+          - id.localhost
+          - aa.localhost
     expose:
       - "443"
       - "4456"
@@ -47,7 +63,7 @@ services:
       - "443:443" # proxy
     sysctls: # allows unprivileged user to listen on 443 (works on linux, otherwise use root user)
       net.ipv4.ip_unprivileged_port_start: 0
-    user: "1000" 
+    user: "1000"
     restart: on-failure
 
   hydra:
@@ -57,6 +73,7 @@ services:
       serve all --config /hydra.yml
     networks:
       - trusted
+      - lockdown
     volumes:
       - ./config/hydra.yml:/hydra.yml
       - ./certs/hydra-key.pem:/srv/certs/hydra-key.pem
@@ -66,7 +83,7 @@ services:
       - 4445
     sysctls: # allows unprivileged user to listen on 443 (works on linux, otherwise use root user)
       net.ipv4.ip_unprivileged_port_start: 0
-    depends_on: 
+    depends_on:
       - oathkeeper
     user: "1000"
     restart: on-failure
@@ -75,20 +92,33 @@ services:
     image: charmixer/idp:0.0.0
     command: --serve
     tty: true
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+        monitor: 5m
+        order: stop-first
+        failure_action: rollback
+        order: start-first
     environment:
       - PORT=443
       - CONFIG_DISCOVERY_PATH=/discovery.yml
       - CONFIG_APP_PATH=/app.yml
     networks:
       - trusted
+      - lockdown
     volumes:
       - ./config/discovery.yml:/discovery.yml
       - ./config/idp.yml:/app.yml
-      - ./config/ban/usernames:/ban/usernames
+      - ./config/banned-usernames:/ban/usernames
       - ./certs/idp-key.pem:/srv/certs/idp-key.pem
       - ./certs/idp-cert.pem:/srv/certs/idp-cert.pem
+
+        # Trust
       - ./certs/hydra-cert.pem:/etc/ssl/certs/hydra-cert.pem
-    depends_on: 
+      - ./certs/oath-cert.pem:/etc/ssl/certs/oath-cert.pem
+    depends_on:
       - hydra
       - nats
     user: "1000"
@@ -98,6 +128,15 @@ services:
     image: charmixer/idpui:0.0.0
     command: --serve
     tty: true
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+        monitor: 5m
+        order: stop-first
+        failure_action: rollback
+        order: start-first
     environment:
       - PORT=443
       - CONFIG_DISCOVERY_PATH=/discovery.yml
@@ -109,6 +148,9 @@ services:
       - ./config/idpui.yml:/app.yml
       - ./certs/idpui-key.pem:/srv/certs/idpui-key.pem
       - ./certs/idpui-cert.pem:/srv/certs/idpui-cert.pem
+
+        # Trust
+      - ./certs/oath-cert.pem:/etc/ssl/certs/oath-cert.pem
     depends_on:
       - idp
     user: "1000"
@@ -118,19 +160,32 @@ services:
     image: charmixer/aap:0.0.0
     command: --serve
     tty: true
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+        monitor: 5m
+        order: stop-first
+        failure_action: rollback
+        order: start-first
     environment:
       - PORT=443
       - CONFIG_DISCOVERY_PATH=/discovery.yml
       - CONFIG_APP_PATH=/app.yml
     networks:
       - trusted
+      - lockdown
     volumes:
       - ./config/discovery.yml:/discovery.yml
       - ./config/aap.yml:/app.yml
       - ./certs/aap-key.pem:/srv/certs/aap-key.pem
       - ./certs/aap-cert.pem:/srv/certs/aap-cert.pem
+
+        # Trust
       - ./certs/hydra-cert.pem:/etc/ssl/certs/hydra-cert.pem
-    depends_on: 
+      - ./certs/oath-cert.pem:/etc/ssl/certs/oath-cert.pem
+    depends_on:
       - hydra
       - nats
     user: "1000"
@@ -140,6 +195,15 @@ services:
     image: charmixer/aapui:0.0.0
     command: --serve
     tty: true
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 30s
+        monitor: 5m
+        order: stop-first
+        failure_action: rollback
+        order: start-first
     environment:
       - PORT=443
       - CONFIG_DISCOVERY_PATH=/discovery.yml
@@ -151,6 +215,9 @@ services:
       - ./config/aapui.yml:/app.yml
       - ./certs/aapui-key.pem:/srv/certs/aapui-key.pem
       - ./certs/aapui-cert.pem:/srv/certs/aapui-cert.pem
+
+        # Trust
+      - ./certs/oath-cert.pem:/etc/ssl/certs/oath-cert.pem
     depends_on:
       - aap
     user: "1000"
@@ -158,8 +225,10 @@ services:
 
 networks:
   trusted:
-    name: trusted
-    driver: bridge
+    name: opensentry_trusted
     ipam:
       config:
         - subnet: 172.18.0.0/16
+  lockdown:
+    name: opensentry_lockdown
+    internal: true

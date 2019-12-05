@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+
+  meui:
+    image: charmixer/meui:0.0.0
+    command: --serve
+    tty: true
+    environment:
+      - SERVE_PUBLIC_PORT=443
+      - CONFIG_DISCOVERY_PATH=/discovery.yml
+      - CONFIG_APP_PATH=/app.yml
+    volumes:
+      - ./config/discovery.yml:/discovery.yml
+      - ./config/meui.yml:/app.yml
+
+      - ./certs/meui-key.pem:/srv/certs/meui-key.pem
+      - ./certs/meui-cert.pem:/srv/certs/meui-cert.pem
+
+        # Trusting
+      - ./certs/oath-cert.pem:/etc/ssl/certs/oath-cert.pem
+    networks:
+      - untrusted
+    user: "1000"
+    ports:
+      - "443:443"
+    restart: on-failure
+
+networks:
+  untrusted:
+    name: opensentry_untrusted
+    ipam:
+      config:
+        - subnet: 192.168.0.0/16

@@ -1,0 +1,6 @@
+mysqldata/*
+!mysqldata/.gitkeep
+neo4jdata/*
+!neo4jdata/.gitkeep
+certs/*
+!certs/.gitkeep
