@@ -96,8 +96,8 @@ services:
       replicas: 3
       update_config:
         parallelism: 1
-        delay: 30s
-        monitor: 5m
+        delay: 15s
+        monitor: 30s
         order: stop-first
         failure_action: rollback
         order: start-first
@@ -132,8 +132,8 @@ services:
       replicas: 3
       update_config:
         parallelism: 1
-        delay: 30s
-        monitor: 5m
+        delay: 15s
+        monitor: 30s
         order: stop-first
         failure_action: rollback
         order: start-first
@@ -164,8 +164,8 @@ services:
       replicas: 3
       update_config:
         parallelism: 1
-        delay: 30s
-        monitor: 5m
+        delay: 15s
+        monitor: 30s
         order: stop-first
         failure_action: rollback
         order: start-first
@@ -199,8 +199,8 @@ services:
       replicas: 3
       update_config:
         parallelism: 1
-        delay: 30s
-        monitor: 5m
+        delay: 15s
+        monitor: 30s
         order: stop-first
         failure_action: rollback
         order: start-first
