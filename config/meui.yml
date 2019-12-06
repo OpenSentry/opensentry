@@ -4,7 +4,7 @@ log:
   debug: 1
   format: default
 oauth2:
-  callback: https://me.localhost/callback
+  callback: https://me.localhost:4443/callback
   client:
     id: 20f2bfc6-44df-424a-b490-c024d009892c
     secret: youreallyneedtochangethis_64
@@ -47,6 +47,8 @@ oauth2:
     - aap:create:shadows
     - aap:read:shadows
     - aap:delete:shadows
+provider:
+  name: IDP & AAP
 serve:
   public:
     port: 443
