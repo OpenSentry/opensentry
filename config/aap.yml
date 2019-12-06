@@ -15,6 +15,7 @@ neo4j:
   password: neo4j_youreallyneedtochangethis_64
   uri: bolt://neo4j:7687
   username: neo4j
+  debug: 0
 oauth2:
   client:
     id: b27062eb-090a-4c9a-a982-ff47b8c7f916
