@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   aap-migrate:
-    image: charmixer/aap:0.0.0
+    image: opensentry/aap:0.0.0
     command:
       --migrate
     networks:
