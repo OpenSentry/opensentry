@@ -4,7 +4,7 @@ log:
   debug: 1
   format: default
 oauth2:
-  callback: https://me.localhost:4443/callback
+  callback: https://me.localhost/callback
   client:
     id: 20f2bfc6-44df-424a-b490-c024d009892c
     secret: youreallyneedtochangethis_64
