@@ -7,12 +7,12 @@ services:
     command:
       migrate sql -e --yes --config /hydra.yml
     networks:
-      - trusted
+      - lockdown
     volumes:
       - ../config/hydra.yml:/hydra.yml
     user: "1000"
     restart: "no"
 
 networks:
-  trusted:
-    name: trusted
+  lockdown:
+    name: opensentry_lockdown
