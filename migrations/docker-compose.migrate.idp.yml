@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   idp-migrate:
-    image: charmixer/idp:0.0.0
+    image: opensentry/idp:0.0.0
     command:
       --migrate
     networks:
