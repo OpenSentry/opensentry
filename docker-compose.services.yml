@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   postfix:
-    image: charmixer/dev-postfix:0.0.0
+    image: opensentry/dev-postfix:0.0.0
     expose:
       - 25
       - 587
@@ -89,7 +89,7 @@ services:
     restart: on-failure
 
   idp:
-    image: charmixer/idp:0.0.0
+    image: opensentry/idp:0.0.0
     command: --serve
     tty: true
     deploy:
@@ -125,7 +125,7 @@ services:
     restart: on-failure
 
   idpui:
-    image: charmixer/idpui:0.0.0
+    image: opensentry/idpui:0.0.0
     command: --serve
     tty: true
     deploy:
@@ -157,7 +157,7 @@ services:
     restart: on-failure
 
   aap:
-    image: charmixer/aap:0.0.0
+    image: opensentry/aap:0.0.0
     command: --serve
     tty: true
     deploy:
@@ -192,7 +192,7 @@ services:
     restart: on-failure
 
   aapui:
-    image: charmixer/aapui:0.0.0
+    image: opensentry/aapui:0.0.0
     command: --serve
     tty: true
     deploy:
