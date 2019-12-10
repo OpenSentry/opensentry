@@ -41,3 +41,5 @@ serve:
       path: /srv/certs/idpui-key.pem
 session:
   authkey: youreallyneedtochangethis_64
+provider:
+  name: Identity Provider
