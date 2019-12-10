@@ -7,7 +7,7 @@ services:
     command:
       --migrate
     networks:
-      - trusted
+      - lockdown
     environment:
       - CONFIG_DISCOVERY_PATH=/discovery.yml
       - CONFIG_APP_PATH=/app.yml
@@ -18,5 +18,5 @@ services:
     restart: "no"
 
 networks:
-  trusted:
-    name: trusted
+  lockdown:
+    name: opensentry_lockdown
