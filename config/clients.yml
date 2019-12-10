@@ -108,39 +108,3 @@ rows:
     keepSecrets: true
     hydraHost: https://hydra:4445
     configFile: /idp.yml
-
-  -
-    client: #carservice-client
-      id: 23d54544-5205-4aa7-8a25-7c82dcf1e223
-      name: carservice-client
-      scopes: carservice:create:cars
-      grantTypes:
-        - client_credentials
-      audience:
-        - carservice
-      responseTypes:
-        - token
-      redirectUris: []
-      postLogoutRedirectUris: []
-    updateIfExists: true
-    keepSecrets: true
-    hydraHost: https://hydra:4445
-    configFile: /carservice-client.yml
-
-  -
-    client: #carservice
-      id: a75c53db-a529-49fb-af93-c156fbc24a9a
-      name: carservice
-      scopes: hydra #aap:read:entities:judge
-      grantTypes:
-        - client_credentials
-      audience:
-        - hydra
-      responseTypes:
-        - token
-      redirectUris: []
-      postLogoutRedirectUris: []
-    updateIfExists: true
-    keepSecrets: true
-    hydraHost: https://hydra:4445
-    configFile: /carservice.yml
