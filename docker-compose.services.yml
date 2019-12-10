@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   postfix:
-    image: opensentry/dev-postfix:0.0.0
+    image: charmixer/dev-postfix:0.0.0
     expose:
       - 25
       - 587
