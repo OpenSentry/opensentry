@@ -82,9 +82,9 @@ rows:
         - token
         - code
       redirectUris:
-        - https://me.localhost:4443/callback
+        - https://me.localhost/callback
       postLogoutRedirectUris:
-        - https://me.localhost:4443/seeyoulater
+        - https://me.localhost/seeyoulater
     updateIfExists: true
     keepSecrets: true
     hydraHost: https://hydra:4445
