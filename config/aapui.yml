@@ -31,3 +31,5 @@ serve:
       path: /srv/certs/aapui-key.pem
 session:
   authkey: youreallyneedtochangethis_64
+provider:
+  name: Consent Provider
