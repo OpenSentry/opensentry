@@ -240,7 +240,7 @@ ttl:
 tracing:
   # Set this to the tracing backend you wish to use. Currently supports jaeger. If omitted or empty, tracing will
   # be disabled.
-  provider: jaeger
+  #provider: jaeger
   # Specifies the service name to use on the tracer.
   service_name: ORY Hydra
   providers:
