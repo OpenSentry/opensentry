@@ -13,10 +13,10 @@ services:
       - ../config/meui.yml:/meui.yml
     command: hydra-tools
     networks:
-      - trusted
+      - lockdown
     user: "1000"
     restart: "no"
 
 networks:
-  trusted:
-    name: trusted
+  lockdown:
+    name: opensentry_lockdown
