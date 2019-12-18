@@ -6,6 +6,8 @@ services:
     image: mysql:8.0
     volumes:
        - ./mysqldata:/var/lib/mysql
+    deploy:
+      endpoint_mode: "dnsrr"
     env_file:
       - ./config/mysql.env
     networks:
@@ -15,6 +17,8 @@ services:
 
   neo4j:
     image: neo4j:3.5.0
+    deploy:
+      endpoint_mode: "dnsrr"
     volumes:
       - ./neo4jdata:/data
     env_file:
